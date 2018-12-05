@@ -17,6 +17,7 @@ class productController extends Controller
      */
     public function index()
     {
+        //pokazuje wszystkie produkty w bazie
         $products = Product::all();
         return view('index')->with('products',$products);
     }
@@ -50,8 +51,8 @@ class productController extends Controller
      */
     public function show($id)
     {
+        //pokazuje wybrane porodukty z bazy (szczegoly)
         $product = Product::find($id);
-
         return view('pages.product')->with('product',$product);
     }
 

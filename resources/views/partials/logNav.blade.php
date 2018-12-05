@@ -37,6 +37,9 @@
         <a class="dropdown-item" href="my-profile">
             Twoje Dane
         </a>
+        <a class="dropdown-item" href="my-orders">
+            Twoje zakupy
+        </a>
 
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf

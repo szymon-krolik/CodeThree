@@ -17,16 +17,12 @@ class orderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //pokazuje zamowienie na stronie
     public function index()
     {
         $items = Cart::content();
         $price = Cart::subtotal();
         $user = User::where('id',Auth::id())->first();
-        //$user = DB::table('users')->where('id','=',Auth::id())->get();
-
-        //return view('pages.order')->with('cartProducts',$cartProducts)->with('user',$user);
-
-        //return view('pages.order', compact('cartProducts'))->with('user',$user);
         return view('pages.order', compact('price'),compact('items'))->with('user',$user);
     }
 
@@ -48,30 +44,37 @@ class orderController extends Controller
      */
     public function store(Request $request)
     {
+        if(Auth::check()){
+            //pobiera caly koszyk
+            $cartItems = Cart::content();
+            //pobiera kwote zamowilenia
+            $cartTotal = Cart::subtotal();
+            $total = $request->input('Total');
 
-        $cartItems= Cart::content();
-        $cartTotal = Cart::subtotal();
-        $total = $request->input('Total');
-        $dlugosc = count($cartItems);
+            //liczy dlugosc tablicy z produkatami
+            $dlugosc = count($cartItems);
 
-       for($i =$dlugosc;$i<=$dlugosc;$i++){
-            foreach($cartItems as $cartItem){
-                DB::table('orders')->insert([
-                    'user_id' => Auth::id(),
-                    'product_id' => $cartItem->id,
-                    'quantity' => $cartItem -> qty,
-                    'price' =>  $cartItem ->price,
-                    'created_at' => now()
-                ]);
-            };
+            //wykonuje inserta do bazy
+            for ($i = $dlugosc; $i <= $dlugosc; $i++) {
+
+                //przeglada cala tablice z przedmiotami i wypisuje
+                foreach ($cartItems as $cartItem) {
+                    DB::table('orders')->insert([
+                        'user_id' => Auth::id(),
+                        'product_id' => $cartItem->id,
+                        'qty' => $cartItem->qty,
+                        'price' => $cartItem->price,
+                        'created' => now()
+                    ]);
+                };
+            }
+
+            //zwraca strone z podziekowaniami za zakupy
+            return view('pages.thank');
         }
-
-
-       return view('pages.thank')->with('dlugosc', $dlugosc);
-
-
-
-
+        else{
+            return back();
+        }
     }
 
     /**
@@ -80,9 +83,11 @@ class orderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-
+        //$orders  = DB::table('orders')->where('user_id',Auth::id())->get();
+        $orders = DB::table('orders')->join('products','orders.product_id','=','products.id')->where('user_id',Auth::id())->get();
+        return view('pages.my_order')->with('orders',$orders);
     }
 
     /**

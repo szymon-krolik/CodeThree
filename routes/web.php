@@ -12,24 +12,28 @@
 */
 
 
-
+//Zasoby
 Route::resource('Product','productController');
-
 Route::resource('User','userController');
 
+//kontrola stron
 Route::get('/','pagesController@index')->name('index');
 Route::get('/logIndex','pagesController@log');
+//konrola uzytkownika
 Route::get('/my-profile','userController@index');
 Route::get('/my-profile/Auth::id()/edit','userController@edit');
-//Route::get('/cart','cartController@show')->name('cart');
-//Route::get('/Product/id/add','cartController@add')->name('cart_add');
+
+//kontrola koszyka
 Route::post('/cart-add','cartController@addToCart');
 Route::get('/cart-show','cartController@showcart')->name('show_cart');
-//Route::post('/cart-delete','cartController@delete')->name('delete_cart');
+Route::get('/delete/{rowId}','cartController@destroy')->name('item.delete');
+
+//kontrola zamowien
 Route::get('/order','orderController@index')->name('order.show');
 Route::post('/order-complete','orderController@store')->name('order.store');
-//Route::get('/order','orderController@index');
+Route::get('/my-orders','orderController@show')->name('order.my');
 
+
+//kontrola autoryzacji
 Auth::routes();
-
 Route::get('/home', 'pagesController@log')->name('home');

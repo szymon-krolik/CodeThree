@@ -23,21 +23,27 @@
         <th>Ilość</th>
         <th>Cena jednostkowa</th>
         <th>Cena</th>
+        <th> Action </th>
 
     </tr>
     {!! Form::open(['route' => 'order.store']) !!}
     @foreach($cartProducts as $product)
     <tr>
-        <th scope="row">
-            {{$product -> id}}</th>
+
+        <th scope="row">  {{$product -> id}}</th>
         <td>{{$product -> name}}</td>
         <td>{{$product -> qty}}</td>
         <td>{{$product -> price}}</td>
-        <?php
+        <td><a href="delete/{{$product->rowId}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">usun</a></td>
+
+
+    <?php
     $subTotal = $product->qty*$product->price;
     ?>
+
         <td>{{$subTotal}} zł</td>
     </tr>
+
         <?php
             $total = $total+$subTotal;
         ?>
@@ -53,7 +59,7 @@
     </tr>
     {{Form::submit('Submit',['class' => 'btn btn-primary'])}}
         {!! Form::close() !!}
-   
+
     </tbody>
 </table>
 

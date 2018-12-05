@@ -19,7 +19,7 @@
 </div>
 <div class="form-group">
 	{{ Form::label('password','password')}}
-	{{Form::text('password',$user -> password,['class' => 'form-control', 'placeholder' => 'password' ])}}
+	{{Form::password('password',$user -> password,['class' => 'form-control', 'placeholder' => 'password' ])}}
 </div>
 <div class="form-group">
 	{{ Form::label('city','city')}}

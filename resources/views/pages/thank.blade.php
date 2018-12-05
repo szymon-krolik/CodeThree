@@ -7,10 +7,10 @@
  */
 ?>
 
-dziaal
+@include('../partials/logNav')
 
-<?php
-echo  $dlugosc;
+Dziękujemy za zakupy!
 
-?>
+
+@include('../partials/footer')
 

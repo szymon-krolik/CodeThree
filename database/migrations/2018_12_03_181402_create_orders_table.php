@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->references('id')->on('users');
             $table->integer('product_id')->references('id')->on('products');
-            $table->integer('quantity');
+            $table->integer('qty');
             $table ->decimal('price');
             $table->timestamps();
         });

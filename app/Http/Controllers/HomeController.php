@@ -13,6 +13,7 @@ class HomeController extends Controller
      *
      * @return void
      */
+    //sprawdza autoryzaje uzytkownika
     public function __construct()
     {
         $this->middleware('auth');
@@ -23,6 +24,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //zwraca porodukty
     public function index()
     {
         $products = Product::all();

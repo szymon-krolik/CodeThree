@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Cart;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 class userController extends Controller
 {
@@ -13,11 +14,15 @@ class userController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //pokazuje informacje o uzytkowniku hasla etc
     public function index()
     {
-
-        $user = User::where('id',Auth::id())->first();
-        return view('pages.user_data')->with('user',$user);
+        if(Auth::check()) {
+            $user = User::where('id', Auth::id())->first();
+            return view('pages.user_data')->with('user', $user);
+        }else{
+            return back();
+        }
     }
 
     /**
@@ -49,9 +54,7 @@ class userController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
 
-            return view('pages.user_data')->with('user',$user);
     }
 
     /**
@@ -60,18 +63,10 @@ class userController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+   public function edit($id)
     {
 
-        $user = User::find($id);
-       
-         if(Auth::id() == $user){
 
-
-        return view('pages.edit_user')->with('user',$user);
-    }else{
-        return view('index');
-    }
     }
 
     /**
@@ -85,24 +80,23 @@ class userController extends Controller
     {
         
 
-        //update
+        //aktualizacja danych uzytkownika
+
+        //znajduje rekord do aktualizacji
         $user = User::find($id);
+        //zapytanie, ktore aktualizuje
         $userUpdate = User::where('id',$user->id)->update([
         'name' => $request->input('name'),
         'surname' => $request->input('surname'),
         'email' => $request->input('email'),
-        'password' => $request->input('password'),
+        'password' =>Hash::make($request->input('password')),
         'city' => $request->input('city'),
         'street' => $request->input('street'),
         'houseNumber' => $request->input('houseNumber'),
         'postCode' => $request->input('postCode')
         ]);
-
-        
-
-        return view('pages.user_data')->with('user',$user);
-
-
+            //cofa na strone z danymi
+            return back()->with('user',$user);
     }
 
     /**
