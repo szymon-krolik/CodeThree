@@ -1,9 +1,15 @@
+<style>
+.ftr{
+background-color: #050505;
+color: #fff;
+}
+</style>
 
-<footer class="page-footer font-small blue">
+<footer class="page-footer font-small blue ftr">
 
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2018 Copyright:
-        <a href=""> Szymoooneek</a>
+        <a href="">Klasa IVP</a>
     </div>
     <!-- Copyright -->
 

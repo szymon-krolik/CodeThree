@@ -15,10 +15,7 @@
     {{ Form::label('email','email')}}
     {{Form::text('email',$user -> email,['class' => 'form-control', 'placeholder' => 'email' ])}}
   </div>
-  <div class="form-group">
-    {{ Form::label('password','password')}}
-    {{Form::text('password',$user -> password,['class' => 'form-control', 'placeholder' => 'password' ])}}
-  </div>
+
   <div class="form-group">
     {{ Form::label('city','city')}}
     {{Form::text('city',$user -> city,['class' => 'form-control', 'placeholder' => 'city' ])}}
@@ -40,8 +37,3 @@
 
   {!! Form::close()!!}
 </div>
-
-@include('../partials/footer');
-
-
-

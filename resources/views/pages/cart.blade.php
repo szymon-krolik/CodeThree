@@ -8,7 +8,12 @@
 ?>
 @include('../partials/logNav')
 
-
+<style>
+.kup{
+  float: right;
+  margin-right: 150px;
+}
+</style>
 
 <table class="table">
     <?php
@@ -57,10 +62,8 @@
         <td>{{$total}} zł</td>
 
     </tr>
-    {{Form::submit('Submit',['class' => 'btn btn-primary'])}}
-        {!! Form::close() !!}
-
     </tbody>
-</table>
 
-@include('../partials/footer');
+</table>
+{{Form::submit('Potwierdź',['class' => 'btn btn-primary kup'])}}
+    {!! Form::close() !!}

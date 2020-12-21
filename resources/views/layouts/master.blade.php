@@ -1,6 +1,18 @@
+<?php
+ use Illuminate\Support\Facades\Auth;
+ ?>
+@if (Auth::check())
+@include('../partials.logNav')
+@else
+@include('../partials.navbar')
+@endif
+
 @include('../partials/header')
-@include('../partials/navbar')
-<div class="container-fluid">
+
+
+
+
+<div class="main-container">
 
 
 </div>
